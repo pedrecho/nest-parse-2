@@ -7,6 +7,6 @@ export class ScrapeController {
 
   @Get()
   scrape() {
-    return this.scrapeService.scrape();
+    return this.scrapeService.getData();
   }
 }

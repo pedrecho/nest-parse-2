@@ -2,11 +2,23 @@ import { Injectable } from '@nestjs/common';
 import * as cheerio from 'cheerio'
 import * as rp from 'request-promise'
 
+
 @Injectable()
 export class ScrapeService {
   static isParse: Boolean = true;
+  static data = {};
 
-  async scrape() {
+  async getData() {
+    return (ScrapeService.isParse && ScrapeService.data) || {};
+  }
+
+  static async scrapeLoop() {
+    setInterval(() => {
+      this.scrape();
+    }, 5000);
+  }
+
+  static async scrape() {
     let data = [];
     if (!ScrapeService.isParse) {
       return data;
@@ -34,6 +46,6 @@ export class ScrapeService {
     }
     // console.log(data.length);
     // console.log(data);
-    return data;
+    ScrapeService.data = data;
   }
 }

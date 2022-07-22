@@ -15,9 +15,9 @@ export class EventsGateway {
     @SubscribeMessage('parsing')
     handleMessage() {
         setInterval(() => {
-            this.scrapeService.scrape().then((item) => {
+            this.scrapeService.getData().then((item) => {
                 this.server.emit('parsing', item);
             });
-        }, 5000);
+        }, 1000);
     }
 }
