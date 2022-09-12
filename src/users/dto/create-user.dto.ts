@@ -1,7 +1,11 @@
-import {ApiProperty} from "@nestjs/swagger";
+import { IsEmail, IsEnum, IsIn, Min } from 'class-validator';
+import { userRoles } from '../users.model';
 
 export class CreateUserDto {
-    readonly email: string;
-    readonly password: string;
-    readonly role: string;
+  @IsEmail()
+  readonly email: string;
+  @Min(4)
+  readonly password: string;
+  @IsIn(userRoles)
+  readonly role: string;
 }

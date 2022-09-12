@@ -1,23 +1,20 @@
-import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import { ScrapeService } from "./scrape/scrape.service";
-import { UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "./auth/jwt-auth.guard";
-
+import { ScrapeService } from './scrape/scrape.service';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 
 @WebSocketGateway()
 export class EventsGateway {
-    constructor(private scrapeService: ScrapeService) {}
+  constructor(private scrapeService: ScrapeService) {}
 
-    @WebSocketServer()
-    server;
+  @WebSocketServer()
+  private server;
 
-    // @UseGuards(JwtAuthGuard)
-    @SubscribeMessage('parsing')
-    handleMessage() {
-        setInterval(() => {
-            this.scrapeService.getData().then((item) => {
-                this.server.emit('parsing', item);
-            });
-        }, 1000);
-    }
+  // @UseGuards(JwtAuthGuard)
+  @SubscribeMessage('parsing')
+  handleMessage() {
+    setInterval(() => {
+      this.scrapeService.getData().then((item) => {
+        this.server.emit('parsing', item);
+      });
+    }, 1000);
+  }
 }

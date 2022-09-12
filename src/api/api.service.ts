@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ScrapeService } from "../scrape/scrape.service";
-import { Roles } from "../auth/roles-auth.decorator";
+import { ScrapeService } from '../scrape/scrape.service';
 
 @Injectable()
 export class ApiService {
-  constructor() {}
+  constructor(private scrapeService: ScrapeService) {}
 
   async startParse() {
-    ScrapeService.isParse = true;
+    this.scrapeService.isParse = true;
   }
 
   async stopParse() {
-    ScrapeService.isParse = false;
+    this.scrapeService.isParse = false;
   }
 }

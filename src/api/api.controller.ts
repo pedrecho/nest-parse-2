@@ -1,7 +1,7 @@
-import { Controller, Post, UseGuards } from "@nestjs/common";
-import { ApiService } from "./api.service";
-import { Roles } from "../auth/roles-auth.decorator";
-import { RolesGuard } from "../auth/roles.guard";
+import { Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiService } from './api.service';
+import { Roles } from '../auth/guards/roles-auth.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller('api')
 export class ApiController {

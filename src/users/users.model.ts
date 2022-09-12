@@ -1,12 +1,15 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Default, Model, Table } from 'sequelize-typescript';
 
 interface UserCreationAttrs {
-  nickname: string;
+  email: string;
   password: string;
   role: string;
 }
 
-@Table({tableName: 'users'})
+export const userRoles = ['USER', 'ADMIN'] as const;
+export type UserRoles = [typeof userRoles];
+
+@Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
@@ -22,6 +25,7 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  role: string;
+  @Default(userRoles[0])
+  @Column(DataType.ENUM(...userRoles))
+  role: UserRoles;
 }

@@ -1,5 +1,5 @@
-import { Controller, Get } from "@nestjs/common";
-import { ScrapeService } from "./scrape.service";
+import { Controller, Get } from '@nestjs/common';
+import { ScrapeService } from './scrape.service';
 
 @Controller('scrape')
 export class ScrapeController {
@@ -7,6 +7,6 @@ export class ScrapeController {
 
   @Get()
   scrape() {
-    return this.scrapeService.getData();
+    return this.scrapeService.data;
   }
 }
